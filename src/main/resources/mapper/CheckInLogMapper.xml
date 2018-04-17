@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="indi.zzw.api.check_in_log.CheckInLogMapper">
+    <resultMap id="CheckInLogMap" type="indi.zzw.api.check_in_log.CheckInLog">
+        <result column="id" property="id" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="card_id" property="cardId" jdbcType="VARCHAR" />
+        <result column="downpayment" property="downpayment" jdbcType="DECIMAL" />
+        <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+        <result column="check_in_date" property="checkInDate" jdbcType="TIMESTAMP" />
+        <result column="check_out_date" property="checkOutDate" jdbcType="TIMESTAMP" />
+        <result column="check_in_days" property="checkInDays" jdbcType="INTEGER" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="create_user_id" property="createUserId" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+        <result column="latest_update_time" property="latestUpdateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, card_id, downpayment,room_number, check_in_date, check_out_date, check_in_days, remark,status,create_user_id,create_time,update_user_id,latest_update_time
+    </sql>
+
+    <!--<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="CheckInLogMap">-->
+        <!--select-->
+        <!--<include refid="Base_Column_List" />-->
+        <!--from hms_check_in_log-->
+        <!--where id = #{id}-->
+    <!--</select>-->
+    <select id="selectAllByCondition" resultMap="CheckInLogMap">
+        select hcil.id, hcil.user_id as userId, hcil.card_id as cardId, hcil.downpayment as downpayment,
+        hcil.room_number as roomNumber, hcil.check_in_date as checkInDate, hcil.check_out_date as checkOutDate,
+        hcil.check_in_days as checkInDays, hcil.remark,hcil.status,hcil.create_user_id as createUserId,
+        hcil.create_time as createTime,hcil.update_user_id as updateUserId,
+        hcil.latest_update_time as latestUpdateTime,hu.name as username
+        from hms_check_in_log as hcil
+        inner join hms_user as hu on hcil.user_id = hu.id
+        where hcil.status = 'VALID'
+        <if test="cardId != null and cardId != ''">
+            and binary hcil.card_id <![CDATA[ like CONCAT("%",#{cardId},"%") ]]>
+        </if>
+        <if test="userName != null and userName != ''">
+            and hu.name <![CDATA[ like CONCAT("%",#{userName},"%")]]>
+        </if>
+        <if test="roomNumber != null and roomNumber !=''">
+            and hcil.room_number = #{roomNumber}
+        </if>
+    </select>
+
+</mapper>

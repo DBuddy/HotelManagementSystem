@@ -1,0 +1,102 @@
+#headbody {
+	margin-top: 70px;
+}
+
+#navbar ul li :hover {
+	text-decoration: none;
+	color: white !important;
+	background: #de0f18 !important;
+}
+
+.tile {
+	background-color: #ecf0f5;
+	border-radius: 6px;
+	padding: 14px;
+	position: relative;
+	text-align: center;
+}
+
+#act {
+	margin-top: 20px;
+	margin-left: 50px;
+}
+
+.activity {
+	float: left;
+	min-height: 1px;
+	margin-left: 30px;
+	width: 220px;
+}
+
+.tile-image.big-illustration {
+	height: 111px;
+	margin-top: 20px;
+	width: 112px;
+}
+
+.tile-image {
+	height: 100px;
+	margin: 31px 0 27px;
+	margin-top: 31px;
+	vertical-align: bottom;
+}
+
+.tile h3 {
+	text-align: center;
+}
+
+#mainbody {
+	margin-top: 10px;
+	background: #bdc1c5;
+	height: 470px;
+}
+
+#footerbody {
+	margin-top: 10px;
+	height: 400px;
+}
+
+#hotelInfo {
+	font-size: 15px;
+	background-color: #1abc9c;
+	color: #cff3ec;
+	padding: 0 30px 30px;
+	text-align: left;
+	border: dashed 5px;
+	margin-left: 12%;
+	width: 400px;
+	height: 330px;
+}
+
+#hotelInfo ul li {
+	line-height: 50px;
+	list-style: none;
+}
+
+#map {
+	width: 400px;
+}
+
+#map h3 {
+	color: lightblue;
+	margin-top: 5px;
+	line-height: 20px;
+}
+
+#parterner {
+	margin-left: 10px;
+	padding-left: 20px;
+	height: 330px;
+	width: 400px;
+	color: #cff3ec;
+	border: dashed lightgreen 5px;
+	background-color: #1abc9c;
+}
+
+#parterner ul li {
+	list-style: none;
+}
+
+.parterner_img {
+	padding-top: 10px;
+}

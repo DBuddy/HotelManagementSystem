@@ -1,5 +1,7 @@
 package indi.zzw.api.check_in_log;
 
+import java.time.LocalDate;
+
 public class CheckInLog {
 	// 入住记录Id
 	private String id;
@@ -11,12 +13,14 @@ public class CheckInLog {
 	private String cardId;
 	// 押金
 	private String downpayment;
+	// 房间号码
+	private String roomNumber;
 	// 入住日期
-	private Integer check_in_date;
+	private LocalDate checkInDate;
 	// 退房日期
-	private Integer check_out_date;
+	private LocalDate checkOutDate;
 	// 入住天数
-	private String check_in_days;
+	private Integer checkInDays;
 	// 备注
 	private String remark;
 	// 状态：VALID(生效)、INVALID(失效)、DELETED(已删除)
@@ -70,28 +74,36 @@ public class CheckInLog {
 		this.downpayment = downpayment;
 	}
 
-	public Integer getCheck_in_date() {
-		return check_in_date;
+	public String getRoomNumber() {
+		return roomNumber;
 	}
 
-	public void setCheck_in_date(Integer check_in_date) {
-		this.check_in_date = check_in_date;
+	public void setRoomNumber(String roomNumber) {
+		this.roomNumber = roomNumber;
 	}
 
-	public Integer getCheck_out_date() {
-		return check_out_date;
+	public LocalDate getCheckInDate() {
+		return checkInDate;
 	}
 
-	public void setCheck_out_date(Integer check_out_date) {
-		this.check_out_date = check_out_date;
+	public void setCheckInDate(LocalDate checkInDate) {
+		this.checkInDate = checkInDate;
 	}
 
-	public String getCheck_in_days() {
-		return check_in_days;
+	public LocalDate getCheckOutDate() {
+		return checkOutDate;
 	}
 
-	public void setCheck_in_days(String check_in_days) {
-		this.check_in_days = check_in_days;
+	public void setCheckOutDate(LocalDate checkOutDate) {
+		this.checkOutDate = checkOutDate;
+	}
+
+	public Integer getCheckInDays() {
+		return checkInDays;
+	}
+
+	public void setCheckInDays(Integer checkInDays) {
+		this.checkInDays = checkInDays;
 	}
 
 	public String getRemark() {
