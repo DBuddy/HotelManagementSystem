@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="indi.zzw.api.room.RoomMapper">
+    <resultMap id="RoomMap" type="indi.zzw.api.room.Room">
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="room_no" property="roomNo" jdbcType="VARCHAR"/>
+        <result column="room_type" property="roomType" jdbcType="VARCHAR"/>
+        <result column="room_status" property="roomStatus" jdbcType="VARCHAR"/>
+        <result column="room_price" property="roomPrice" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="create_user_id" property="createUserId" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="latest_update_time" property="latestUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="selectRoomByCondition" resultMap="RoomMap" parameterType="java.util.Map">
+        select hr.id,hr.room_no as roomNo,hr.room_type as roomType,
+        case hr.room_status
+        when 'RS01' then '待入住'
+        when 'RS02' then '已入住'
+        when 'RS03' then '已预订'
+        when 'RS04' then '维修中'
+        end roomStatus,
+        hr.room_price as roomPrice,hr.remark as remark,hr.status as status,hu.name as createUser,
+        hr.create_time as createTime,hr.update_user_id as updateUserId, hu.name as userName,
+        hr.latest_update_time as latestUpdateTime
+        from hms_room as hr
+        inner join hms_user as hu on hu.id = hr.create_user_id
+        where hr.status = 'VALID'
+        and hu.status = 'VALID'
+        <if test="roomNo != null and roomNo != ''">
+            and hr.room_no = #{roomNo}
+        </if>
+        <if test="roomStatus != null and roomStatus != ''">
+            and hr.room_status = #{roomStatus}
+        </if>
+        <if test="roomType != null and roomType !=''">
+            and hr.room_type = #{roomType}
+        </if>
+        order by hr.room_no
+    </select>
+</mapper>

@@ -34,7 +34,6 @@ public class CheckInLogController {
 													@RequestParam(required = false) String userName,
 													@RequestParam(required = false) String roomNumber,
 													Principal principal)  throws Exception{
-		System.out.println("---------------------->"+cardId);
 		return checkInLogService.getAllCheckInLog(cardId, roomNumber,userName);
 	}
 

@@ -20,36 +20,29 @@ function refreshLog(data) {
     selector.html("");
     var map = data.list;
     for (var i = 0; i < map.length; i++) {
-        var id = "<th>" + (i + 1) + "</th>";
-        var userName = "<th>" + map[i].userName + "</th>";
-        var cardId = "<th>" + map[i].cardId + "</th>";
-        var checkInDays = "<th>" + map[i].checkInDays + "</th>";
-        var roomNumber = "<th>" + map[i].roomNumber + "</th>";
-        var checkInDate = "<th>" + map[i].checkInDate + "</th>";
-        var checkOutDate = "<th>" + map[i].checkOutDate + "</th>";
-        var downpayment = "<th>" + map[i].downpayment + "</th>";
+        var id = "<td>" + (i + 1) + "</td>";
+        var userName = "<td>" + map[i].userName + "</td>";
+        var cardId = "<td>" + map[i].cardId + "</td>";
+        var checkInDays = "<td>" + map[i].checkInDays + "</td>";
+        var roomNumber = "<td>" + map[i].roomNumber + "</td>";
+        var checkInDate = "<td>" + map[i].checkInDate + "</td>";
+        var checkOutDate = "<td>" + map[i].checkOutDate + "</td>";
+        var downpayment = "<td>" + map[i].downpayment + "</td>";
         selector.append("<tr>" + id + userName + cardId + checkInDays + roomNumber + checkInDate + checkOutDate + downpayment);
     }
 }
 
 function refreshRoom(data) {
-    var selector = $("#roomlist").find("#list1").find("#listbody");
+    var selector = $("#list").find("#list1").find("#listbody");
     selector.html("");
-    for (var i = 0; i < data.length; i++) {
-        var id = "<th>" + (i + 1) + "</th>";
-        var number = "<th>" + data[i].number + "</th>";
-        var type = "<th>" + data[i].type + "</th>";
-        var price = "<th>" + data[i].price + "</th>";
-        var startdate = "<th>" + data[i].startdate + "</th>";
-        var enddate = "<th>" + data[i].enddate + "</th>";
-        if (data[i].state == 0) {
-            var state = "<th>" + "空闲" + "</th>";
-            startdate = "<th>" + "" + "</th>";
-            enddate = "<th>" + "" + "</th>";
-        }
-        else {
-            var state = "<th>" + "在售" + "</th>";
-        }
-        selector.append("<tr>" + id + number + type + state + price + startdate + enddate)
+    var map = data.list;
+    for (var i = 0; i < map.length; i++) {
+        var roomNo = "<td>" + map[i].roomNo + "</td>";
+        var roomType = "<td>" + map[i].roomType + "</td>";
+        var roomPrice = "<td>" + map[i].roomPrice + "</td>";
+        var roomStatus = "<td>" + map[i].roomStatus + "</td>";
+        var remark = "<td>" + map[i].remark + "</td>";
+        var operation = "<td>" + "<button class='btn btn-info' style='height: 30px; line-height: 15px' data-toggle='modal' data-target = '#myModal'>详情</button>" + "</td>";
+        selector.append("<tr>" + roomNo + roomType + roomPrice + roomStatus + remark + operation);
     }
 }

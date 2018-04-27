@@ -9,10 +9,10 @@ public class Room {
 	private String roomNo;
 	// 房间类型
 	private String roomType;
-	// 房间状态：RS01(待入住),RS02(已入住),RS03(已预订),RS04(维修中),RS05()
+	// 房间状态：RS01(待入住),RS02(已入住),RS03(已预订),RS04(维修中)
 	private String roomStatus;
 	// 房间价格
-	private BigDecimal price;
+	private BigDecimal roomPrice;
 	// 备注
 	private String remark;
 	// 状态：VALID(生效)、INVALID(失效)、DELETED(已删除)
@@ -58,12 +58,12 @@ public class Room {
 		this.roomStatus = roomStatus;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
+	public BigDecimal getRoomPrice() {
+		return roomPrice;
 	}
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public void setRoomPrice(BigDecimal roomPrice) {
+		this.roomPrice = roomPrice;
 	}
 
 	public String getRemark() {

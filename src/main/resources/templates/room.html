@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>入住记录</title>
+    <title>房间管理</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/bootstrap.css"/>
     <link rel="stylesheet" href="../css/bootstrap-theme.css">
+    <link rel="stylesheet" href="../css/bootstrap-select.css">
+
     <script type="text/javascript" src="/js/jquery-3.2.0.js"></script>
-    <script type="text/javascript" src="/js/main.js"/>
+    <script type="text/javascript" src="/js/bootstrap-select.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/main.js"/>
     <script type="text/javascript" src="/js/echarts.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -24,7 +27,7 @@
             margin-left: 0px !important;
             position: absolute;
             left: 0px;
-            top:0px;
+            top: 0px;
             min-height: 500px;
             width: 180px;
             border-radius: 10px 0 0 10px;
@@ -41,12 +44,30 @@
             height: 50px;
         }
 
+        #searchBlackList label {
+            float: left;
+            font-weight: lighter;
+            margin: 8px 0 0 5px;
+        }
+
+        #searchRoomNo {
+            border-radius: 5px;
+            margin-left: 5px;
+            width: 180px;
+        }
+
+        #searchRoomStatus{
+            background: #ffffff;
+        }
+
         #list {
             height: 85%;
         }
-        .sidebar-nav li:first-child{
+
+        .sidebar-nav li:first-child {
             margin-top: 20px;
         }
+
         .nav {
             margin-bottom: 20px;
             padding-left: 0;
@@ -70,25 +91,20 @@
             display: table;
         }
 
-        #searchName {
-            border-radius: 5px;
-            margin-left: 20px;
+        .btn-group {
             width: 180px;
+            float: left;
+            margin-left: 10px;
         }
 
-        #searchCardId {
-            border-radius: 5px;
-            margin-left: 20px;
-            width: 180px;
+        .room-info {
+            width: 250px;
+        }
+        .form-control{
+            width: 150px;
         }
 
-        #searchRoom {
-            border-radius: 5px;
-            margin-left: 20px;
-            width: 180px;
-        }
-
-        table tr th td{
+        table th,td {
             text-align: center;
         }
 
@@ -110,7 +126,7 @@
             line-height: 20px;
             font-weight: 400;
             width: 1180px;
-            margin: 0 auto ;
+            margin: 0 auto;
             background-color: #fff;
         }
 
@@ -169,36 +185,47 @@
     </div>
     <div id="rightPart">
         <div id="searchBlackList" class="input-group">
-            <input id="searchCardId" type="text" class="form-control"
-                   placeholder="请输入客户身份证"/>
-            <input id="searchName" type="text" class="form-control"
-                   placeholder="请输入客户姓名"/>
-            <input id="searchRoom" type="text" class="form-control"
+            <label>房间号码</label>
+            <input id="searchRoomNo" type="text" class="form-control"
                    placeholder="请输入房间号码"/>
+            <label style="float: left;font-weight: lighter">房间状态</label>
+            <select id="searchRoomStatus" class="selectpicker" data-info="btn-info" data-live-search="true">
+                <option value="">请选择</option>
+                <option value="RS01">待入住</option>
+                <option value="RS02">已入住</option>
+                <option value="RS03">待预定</option>
+                <option value="RS04">维修中</option>
+            </select>
+            <label>房间类型</label>
+            <select id="searchRoomType" class="selectpicker" data-info="btn-info" data-live-search="true">
+                <option value="">请选择</option>
+                <option value="普通单间">普通单间</option>
+                <option value="豪华单间">豪华单间</option>
+                <option value="双人房">双人房</option>
+                <option value="大床房">大床房</option>
+                <option value="情侣房">情侣房</option>
+            </select>
             <button id="search" class="btn btn-info btn-search"
                     style="margin: 0 0 3px 5px;">查找
             </button>
         </div>
         <div id="list">
             <div class="table-responsive">
-                <table id="list1" class="table table-striped">
+                <table id="list1" class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>序号</th>
-                        <th>客户姓名</th>
-                        <th>客户身份证号</th>
-                        <th>客户入住天数</th>
                         <th>房间号</th>
-                        <th>入住时间</th>
-                        <th>退房时间</th>
-                        <th>定金</th>
+                        <th>房间类型</th>
+                        <th>房间价格</th>
+                        <th>房间状态</th>
+                        <th>备注</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody id="listbody">
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
 </div>
@@ -206,22 +233,64 @@
     © 2018 <a href="#" target="_blank">0144052周智文酒店管理系統</a> 0144052zzwHOTEL MANAGER
     SYSTEM- TEL:
 </footer>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">房间信息详情</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group room-info">
+                        <lable>房间号</lable>
+                        <span class="form-control">606</span>
+                    </div>
+                    <div class="form-group room-info">
+                        <lable>房间类型</lable>
+                        <span class="form-control">豪华单间</span>
+                    </div>
+                    <div class="form-group room-info">
+                        <lable>房间状态</lable>
+                        <span class="form-control">待入住</span>
+                    </div>
+                    <div class="form-group room-info">
+                        <lable>房间状态</lable>
+                        <span class="form-control">待入住</span>
+                    </div>
+                    <div class="form-group room-info">
+                        <lable>房间状态</lable>
+                        <span class="form-control">待入住</span>
+                    </div>
+                    <div class="form-group room-info">
+                        <lable>房间状态</lable>
+                        <span class="form-control">待入住</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 </body>
 
 <script>
     $().ready(function () {
-        request(null, "GET", "checkInLog/query", refreshLog);
-    })
-    $("#search").click(function () {
-        var card = $("#searchBlackList").find("#searchCardId").val();
-        var userName = $("#searchBlackList").find("#searchName").val();
-        var roomNumber = $("#searchBlackList").find("#searchRoom").val();
-        var o = {
-            "cardId": card,
-            "userName": userName,
-            "roomNumber":roomNumber
-        };
-        request(o, "GET", "checkInLog/query", refreshLog);
+        request(null, "GET", "room/query", refreshRoom);
+        $("#search").click(function () {
+            var roomNo = $("#searchBlackList").find("#searchRoomNo").val();
+            var roomStatus = $("#searchBlackList").find("#searchRoomStatus").val();
+            var roomType = $("#searchBlackList").find("#searchRoomType").val();
+            var o = {
+                "roomNo": roomNo,
+                "roomStatus": roomStatus,
+                "roomType": roomType
+            };
+            request(o, "GET", "room/query", refreshRoom);
+        })
     })
 
 </script>

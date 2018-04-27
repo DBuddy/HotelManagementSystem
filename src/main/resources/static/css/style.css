@@ -1,102 +1,131 @@
-#headbody {
-	margin-top: 70px;
-}
-
 #navbar ul li :hover {
-	text-decoration: none;
-	color: white !important;
-	background: #de0f18 !important;
+    text-decoration: none;
+    color: white !important;
+    background: #de0f18 !important;
 }
 
 .tile {
-	background-color: #ecf0f5;
-	border-radius: 6px;
-	padding: 14px;
-	position: relative;
-	text-align: center;
+    background-color: #ecf0f5;
+    border-radius: 6px;
+    padding: 14px;
+    position: relative;
+    text-align: center;
 }
 
 #act {
-	margin-top: 20px;
-	margin-left: 50px;
+    margin-top: 20px;
+    margin-left: 50px;
 }
 
 .activity {
-	float: left;
-	min-height: 1px;
-	margin-left: 30px;
-	width: 220px;
+    float: left;
+    min-height: 1px;
+    margin-left: 30px;
+    width: 220px;
+    height: 550px;
 }
 
 .tile-image.big-illustration {
-	height: 111px;
-	margin-top: 20px;
-	width: 112px;
+    height: 111px;
+    margin-top: 20px;
+    width: 112px;
 }
 
 .tile-image {
-	height: 100px;
-	margin: 31px 0 27px;
-	margin-top: 31px;
-	vertical-align: bottom;
+    height: 100px;
+    margin: 31px 0 27px;
+    margin-top: 31px;
+    vertical-align: bottom;
 }
 
-.tile h3 {
-	text-align: center;
+.title h3 {
+    text-align: center;
 }
 
 #mainbody {
-	margin-top: 10px;
-	background: #bdc1c5;
-	height: 470px;
+    background: #bdc1c5;
 }
 
 #footerbody {
-	margin-top: 10px;
-	height: 400px;
+    margin-top: 10px;
+    height: 400px;
+    margin: 10px 0 0 5px;
+    width: 100%;
+}
+
+#footerbody h3, li {
+    text-align: left;
 }
 
 #hotelInfo {
-	font-size: 15px;
-	background-color: #1abc9c;
-	color: #cff3ec;
-	padding: 0 30px 30px;
-	text-align: left;
-	border: dashed 5px;
-	margin-left: 12%;
-	width: 400px;
-	height: 330px;
+    font-size: 15px;
+    background-color: #1abc9c;
+    color: #cff3ec;
+    text-align: left;
+    border: dashed lightgreen 5px;
+    height: 330px;
 }
 
 #hotelInfo ul li {
-	line-height: 50px;
-	list-style: none;
+    line-height: 50px;
+    list-style: none;
 }
 
 #map {
-	width: 400px;
+    margin-left: 5px;
 }
 
 #map h3 {
-	color: lightblue;
-	margin-top: 5px;
-	line-height: 20px;
+    color: lightblue;
+    margin-top: 5px;
+    line-height: 20px;
 }
 
 #parterner {
-	margin-left: 10px;
-	padding-left: 20px;
-	height: 330px;
-	width: 400px;
-	color: #cff3ec;
-	border: dashed lightgreen 5px;
-	background-color: #1abc9c;
+    margin-left: 20px;
+    padding-left: 20px;
+    height: 330px;
+    color: #cff3ec;
+    border: dashed lightgreen 5px;
+    background-color: #1abc9c;
 }
 
 #parterner ul li {
-	list-style: none;
+    list-style: none;
 }
 
 .parterner_img {
-	padding-top: 10px;
+    padding-top: 10px;
+}
+
+.brandWord {
+    width: 100%;
+    height: 400px;
+    border:solid lightgray 1px;
+    border-top:none;
+}
+
+.leftPart {
+    width: 50%;
+    float: left;
+    height:100%;
+}
+
+.leftPart-word{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: left;
+    text-indent:2em;
+    margin: 0 60px;
+    font: lighter 16px "Microsoft";
+    line-height: 40px;
+}
+.rightPart {
+    float: right;
+    width: 50%;
+}
+
+.carousel-inner {
+    height: 399px;
 }
