@@ -15,7 +15,7 @@
         <result column="latest_update_time" property="latestUpdateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <select id="selectRoomByCondition" resultMap="RoomMap" parameterType="java.util.Map">
+    <select id="selectRoomByCondition" resultType="java.util.Map" parameterType="java.util.Map">
         select hr.id,hr.room_no as roomNo,hr.room_type as roomType,
         case hr.room_status
         when 'RS01' then '待入住'
@@ -24,7 +24,7 @@
         when 'RS04' then '维修中'
         end roomStatus,
         hr.room_price as roomPrice,hr.remark as remark,hr.status as status,hu.name as createUser,
-        hr.create_time as createTime,hr.update_user_id as updateUserId, hu.name as userName,
+        DATE_FORMAT(hr.create_time,'%Y-%m-%d %H:%i:%s') as createTime,hr.update_user_id as updateUserId, hu.name as userName,
         hr.latest_update_time as latestUpdateTime
         from hms_room as hr
         inner join hms_user as hu on hu.id = hr.create_user_id
@@ -40,5 +40,27 @@
             and hr.room_type = #{roomType}
         </if>
         order by hr.room_no
+    </select>
+    
+    <update id="updateRoomByModel" parameterType="indi.zzw.api.room.Room">
+        update hms_room
+        <set>
+            room_no = #{roomNo},
+            room_type = #{roomType},
+            room_price = #{roomPrice},
+            remark = #{remark},
+            update_user_id = #{updateUserId},
+            latest_update_time = CURRENT_TIMESTAMP
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectRoomById" parameterType="java.lang.String" resultType="java.util.Map">
+        select hr.id,hr.room_no as roomNo,hr.room_type as roomType,hr.room_status as roomStatus,hr.room_price as roomPrice,hr.remark as remark,hr.status as status,hr.create_user_id as createUserId,hu.name as createUser,DATE_FORMAT(hr.create_time,'%Y-%m-%d %H:%i:%s') as createTime,hr.update_user_id as updateUserId,hr.latest_update_time as latestUpdateTime
+        from hms_room  as hr
+        inner join hms_user as hu on hu.id = hr.create_user_id
+        where hr.status = 'VALID'
+        and hu.status = 'VALID'
+        and hr.id = #{id}
     </select>
 </mapper>

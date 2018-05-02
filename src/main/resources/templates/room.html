@@ -56,7 +56,7 @@
             width: 180px;
         }
 
-        #searchRoomStatus{
+        #searchRoomStatus {
             background: #ffffff;
         }
 
@@ -100,12 +100,28 @@
         .room-info {
             width: 250px;
         }
-        .form-control{
+
+        .room-update {
+            width: 250px;
+        }
+
+        .form-control {
             width: 150px;
         }
 
-        table th,td {
+        .dropdown-menu {
+            min-width: 80px;
+            padding: 0px 0px;
+            margin-top: 1px;
+            border-top: 0px;
+        }
+
+        table th, td {
             text-align: center;
+        }
+
+        tbody tr td {
+            line-height: 34px;
         }
 
         footer {
@@ -243,28 +259,46 @@
             <div class="modal-body">
                 <form class="form-inline">
                     <div class="form-group room-info">
-                        <lable>房间号</lable>
-                        <span class="form-control">606</span>
+                        <label class="control-label">房间号</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" id="roomNo" readonly>
+                        </div>
                     </div>
                     <div class="form-group room-info">
-                        <lable>房间类型</lable>
-                        <span class="form-control">豪华单间</span>
+                        <label class="control-label">房间状态</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" id="roomStatus" readonly>
+                        </div>
                     </div>
                     <div class="form-group room-info">
-                        <lable>房间状态</lable>
-                        <span class="form-control">待入住</span>
+                        <label class="control-label">房间类型</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" id="roomType" readonly>
+                        </div>
                     </div>
                     <div class="form-group room-info">
-                        <lable>房间状态</lable>
-                        <span class="form-control">待入住</span>
+                        <label class="control-label">房间价格</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" id="roomPrice" readonly>
+                        </div>
                     </div>
                     <div class="form-group room-info">
-                        <lable>房间状态</lable>
-                        <span class="form-control">待入住</span>
+                        <label class="control-label">备注</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" id="remark" readonly>
+                        </div>
                     </div>
                     <div class="form-group room-info">
-                        <lable>房间状态</lable>
-                        <span class="form-control">待入住</span>
+                        <label class="control-label">创建人</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" id="createUser" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group room-info">
+                        <label class="control-label">创建时间</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" id="createTime" readonly>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -272,8 +306,81 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button type="button" class="btn btn-primary">确定</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="updateModal" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="updateModalLabel">房间信息修改</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group room-update">
+                        <label class="control-label">房间号</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" id="roomNoUpdate">
+                        </div>
+                    </div>
+                    <div class="form-group room-update">
+                        <label class="control-label">房间状态</label>
+                        <div class="controls">
+                            <select id="roomStatusUpdate" class="selectpicker" data-info="btn-info">
+                                <option value="">请选择</option>
+                                <option value="RS01">待入住</option>
+                                <option value="RS02">已入住</option>
+                                <option value="RS03">待预定</option>
+                                <option value="RS04">维修中</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group room-update">
+                        <label class="control-label">房间类型</label>
+                        <div class="controls">
+                            <select id="roomTypeUpdate" class="selectpicker" data-info="btn-info">
+                                <option value="">请选择</option>
+                                <option value="普通单间">普通单间</option>
+                                <option value="豪华单间">豪华单间</option>
+                                <option value="双人房">双人房</option>
+                                <option value="大床房">大床房</option>
+                                <option value="情侣房">情侣房</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group room-update">
+                        <label class="control-label">房间价格</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" id="roomPriceUpdate">
+                        </div>
+                    </div>
+                    <div class="form-group room-update">
+                        <label class="control-label">备注</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" id="remarkUpdate">
+                        </div>
+                    </div>
+                    <div class="form-group room-update">
+                        <label class="control-label">创建人</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" id="createUserUpdate" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group room-update">
+                        <label class="control-label">创建时间</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" id="createTimeUpdate" readonly>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="confirmUpdate()">确定</button>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 
@@ -292,6 +399,7 @@
             request(o, "GET", "room/query", refreshRoom);
         })
     })
+
 
 </script>
 </html>

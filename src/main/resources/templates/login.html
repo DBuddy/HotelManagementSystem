@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/bootstrap.css"/>
+    <script type="text/javascript" src="../js/jquery-3.2.0.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <title>登录</title>
+</head>
+<body>
+<div class="page-container">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><img
+                        style="width: 47px; height: 47px; margin-top: -14px;" alt="logo_1"
+                        src="../img/logo_1.png"/></a>
+            </div>
+            <div class="collapse navbar-collapse"
+                 id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/HotelManageSystem/Mainpage">首页 <span
+                            class="sr-only">(current)</span></a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="/HotelManageSystem/login">登录</a></li>
+                    <li class="dropdown"><a href="/HotelManageSystem/register">注册</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">
+                            <h2>登录</h2>
+                        </div>
+                        <div class="panel-body" style="padding-top: 40px;">
+                            <form class="form-horizontal" role="form" method="post"
+                                  action="">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="name">请输入用户名：</label>
+                                    <div class="col-md-6">
+                                        <input id="name" class="form-control" name="name" type="name"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="password">请输入密码：</label>
+                                    <div class="col-md-6">
+                                        <input id="password" class="form-control" name="password"
+                                               type="password"/>
+                                    </div>
+                                </div>
+                                <!--todo 验证码弄个背景图-->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">请输入验证码：</label>
+                                    <div class="col-md-6">
+                                        <input id="codeinput" style="width: 150px;"
+                                               class="form-control"/> <span id="code" class="verpic"></span>
+                                    </div>
+                                    <p id="errortips" style="margin-left: 14px; color: red;"></p>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-4">
+                                        <div class="checkbox">
+                                            <label> <input type="checkbox" name="remember">记住我
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-4">
+                                        <!-- <button class="btn btn-primary" onclick="loginSuccess()">登录</button> -->
+                                        <a class="btn btn-primary" href="/HotelManageSystem/bookroom">登录</a>
+                                        <a class="btn btn-link" href="#">忘记密码?</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    document.getElementById('code').onclick = changeImg;
+
+    function changeImg() {
+        var arrays = new Array(
+            '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+            'u', 'v', 'w', 'x', 'y', 'z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+            'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+            'U', 'V', 'W', 'X', 'Y', 'Z'
+        );
+        code = "";
+        for (var i = 0; i < 4; i++) {
+            var r = parseInt(Math.random() * arrays.length);
+            code += (arrays[r]);
+        }
+        document.getElementById('code').innerHTML = code;
+    }
+
+    function checkcode() {
+        var userinput = document.getElementById('codeinput').value;
+        if (userinput.toLowerCase() == code.toLowerCase()) {
+            return true;
+        }
+        else {
+            document.getElementById("errortips").innerHTML = "验证码输入错误!";
+            return false;
+        }
+    }
+
+    function loginSuccess() {
+        if (checkcode()) {
+            window.location.href = "http://localhost:8080/room";
+        }
+    }
+
+    $().ready(changeImg);
+</script>
+</html>
