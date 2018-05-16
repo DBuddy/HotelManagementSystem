@@ -15,13 +15,19 @@ public class RoomController {
 	@Autowired
 	private RoomService roomService;
 
+	/**
+	 * 返回房间信息界面
+	 *
+	 * @return
+	 * @throws Exception
+	 */
 	@GetMapping("")
 	public String roomPage() throws Exception {
 		return "room";
 	}
 
 	/**
-	 *  列表查询房间信息
+	 * 列表查询房间信息
 	 *
 	 * @param roomNo
 	 * @param roomType
@@ -38,14 +44,20 @@ public class RoomController {
 	}
 
 	@ResponseBody
-	@RequestMapping(path = "/{id}",method = RequestMethod.GET)
+	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
 	public Map<String, Object> getRoomById(@PathVariable String id) throws ApplicationException {
 		return roomService.getRoomById(id);
 	}
 
+	@ResponseBody
+	@RequestMapping(path = "/add", method = RequestMethod.POST)
+	public void addRoomInformation(@RequestBody Map<String, Object> paramMap) throws ApplicationException {
+
+	}
+
 
 	/**
-	 *  修改房间信息
+	 * 修改房间信息
 	 *
 	 * @param paramMap
 	 * @throws ApplicationException
@@ -56,7 +68,7 @@ public class RoomController {
 	 */
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PATCH)
-	public void modityRoomById(@RequestBody Map<String ,Object> paramMap) throws ApplicationException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
+	public void modityRoomById(@RequestBody Map<String, Object> paramMap) throws ApplicationException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
 		roomService.modifyRoomById(paramMap);
 	}
 }

@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 @Mapper
-public interface CheckInLogMapper{
+public interface CheckInLogMapper {
 	List<CheckInLog> selectAll();
+
 	//根据条件查询入住记录信息
 	List<CheckInLog> selectAllByCondition(Map<String, Object> criteria);
 }

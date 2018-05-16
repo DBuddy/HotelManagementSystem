@@ -28,9 +28,9 @@ public class RoomService {
 	 */
 	PageInfo<Room> getRoomPageByCondition(String roomNo, String roomType, String roomStatus) throws ApplicationException {
 		Map<String, Object> criteria = new HashMap<>();
-		criteria.put("roomNo",roomNo);
-		criteria.put("roomType",roomType);
-		criteria.put("roomStatus",roomStatus);
+		criteria.put("roomNo", roomNo);
+		criteria.put("roomType", roomType);
+		criteria.put("roomStatus", roomStatus);
 		List<Room> roomList = roomMapper.selectRoomByCondition(criteria);
 		return new PageInfo<>(roomList);
 	}
@@ -41,7 +41,7 @@ public class RoomService {
 			throw new ApplicationException("房间ID不能为空！");
 		}
 		Object bean = Class.forName("indi.zzw.api.room.Room").newInstance();
-		BeanUtils.populate(bean,paramMap);
+		BeanUtils.populate(bean, paramMap);
 		roomMapper.updateRoomByModel((Room) bean);
 	}
 

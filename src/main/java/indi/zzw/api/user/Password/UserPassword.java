@@ -1,20 +1,14 @@
-package indi.zzw.api.user;
+package indi.zzw.api.user.Password;
 
-public class User {
+public class UserPassword {
 	//主键
 	private String id;
-	//用户密码表ID
-	private String userPasswordId;
-	//用户身份证号码
+	//用户名(身份证号码)
 	private String cardId;
-	//用户姓名
-	private String name;
-	//用户角色(0:酒店管理员;1：酒店员工;2：酒店顾客)
-	private Integer role;
-	//用户手机号
-	private String telephone;
-	//用户邮箱
-	private String email;
+	//密码
+	private String password;
+	//密码状态
+	private String passwordStatus;
 	// 备注
 	private String remark;
 	// 状态：VALID(生效)、INVALID(失效)、DELETED(已删除)
@@ -36,14 +30,6 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUserPasswordId() {
-		return userPasswordId;
-	}
-
-	public void setUserPasswordId(String userPasswordId) {
-		this.userPasswordId = userPasswordId;
-	}
-
 	public String getCardId() {
 		return cardId;
 	}
@@ -52,36 +38,20 @@ public class User {
 		this.cardId = cardId;
 	}
 
-	public String getName() {
-		return name;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public Integer getRole() {
-		return role;
+	public String getPasswordStatus() {
+		return passwordStatus;
 	}
 
-	public void setRole(Integer role) {
-		this.role = role;
-	}
-
-	public String getTelephone() {
-		return telephone;
-	}
-
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPasswordStatus(String passwordStatus) {
+		this.passwordStatus = passwordStatus;
 	}
 
 	public String getRemark() {

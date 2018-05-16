@@ -1,6 +1,7 @@
 package indi.zzw.api.check_in_log;
 
 import com.github.pagehelper.PageInfo;
+import indi.zzw.exception.ApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,11 @@ public class CheckInLogController {
 	@Autowired
 	private CheckInLogService checkInLogService;
 
+	/**
+	 * 返回入住记录界面
+	 *
+	 * @return
+	 */
 	@GetMapping
 	public String checkInLogPage() {
 		return "checkInLog";
@@ -29,12 +35,12 @@ public class CheckInLogController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(path = "/query",method = RequestMethod.GET)
+	@RequestMapping(path = "/query", method = RequestMethod.GET)
 	public PageInfo<CheckInLog> getCheckInLogByPage(@RequestParam(required = false) String cardId,
 													@RequestParam(required = false) String userName,
 													@RequestParam(required = false) String roomNumber,
-													Principal principal)  throws Exception{
-		return checkInLogService.getAllCheckInLog(cardId, roomNumber,userName);
+													Principal principal) throws ApplicationException {
+		return checkInLogService.getAllCheckInLog(cardId, roomNumber, userName);
 	}
 
 }

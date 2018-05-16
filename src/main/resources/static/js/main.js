@@ -1,3 +1,4 @@
+//ajax请求函数
 function request(object, method, methodURL, callback) {
     $.ajax({
         cache: true,
@@ -6,15 +7,30 @@ function request(object, method, methodURL, callback) {
         contentType: "application/json",
         url: methodURL,
         data: object,
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log(XMLHttpRequest.status + "\r\n" + XMLHttpRequest.readyState + "\r\n" + textStatus);
+        error: function (XMLHttpRequest, errorThrown) {
+            console.log(XMLHttpRequest.status + "\r\n" + XMLHttpRequest.readyState);
         },
-        success: function (data) {
-            callback(data);
-        }
+        success: callback
     });
 }
 
+function roomUpdateRequest(object, method, methodURL, callback) {
+    $.ajax({
+        cache: true,
+        type: method,
+        dataType: "json",
+        contentType: "application/json",
+        url: methodURL,
+        data: object,
+        error: function (XMLHttpRequest, errorThrown) {
+            console.log(XMLHttpRequest.status + "\r\n" + XMLHttpRequest.readyState);
+            success: callback;
+        },
+
+    });
+}
+
+//刷新入住记录
 function refreshLog(data) {
     var selector = $("#list").find("#list1").find("#listbody");
     selector.html("");
@@ -28,10 +44,11 @@ function refreshLog(data) {
         var checkInDate = "<td>" + map[i].checkInDate + "</td>";
         var checkOutDate = "<td>" + map[i].checkOutDate + "</td>";
         var downpayment = "<td>" + map[i].downpayment + "</td>";
-        selector.append("<t r>" + id + userName + cardId + checkInDays + roomNumber + checkInDate + checkOutDate + downpayment);
+        selector.append("<tr>" + id + userName + cardId + checkInDays + roomNumber + checkInDate + checkOutDate + downpayment);
     }
 }
 
+//刷新房间信息
 function refreshRoom(data) {
     var selector = $("#list").find("#list1").find("#listbody");
     selector.html("");
@@ -55,12 +72,32 @@ function refreshRoom(data) {
     $("#listbody").find("tr").find("td").css("line-height","34px");
 }
 
-//点击详情按钮时
+function refreshRoomApply(data) {
+    var selector = $("#list").find("#list1").find("#listbody");
+    selector.html("");
+    var map = data.list;
+    for (var i = 0; i < map.length; i++) {
+        var roomNo = map[i].roomNo;
+        var roomType = map[i].roomType;
+        var roomPrice = map[i].roomPrice;
+        var roomStatus = map[i].roomStatus;
+        var id = map[i].id;
+        if (map[i].remark != null) {
+            var remark = map[i].remark;
+        } else {
+            var remark = "";
+        }
+        selector.append("<tr>" + "<td>"+roomNo+"</td>" + "<td>"+roomType+ "</td>" +"<td>"+ roomPrice+"</td>" +"<td>"+ roomStatus+"</td>" +"<td>"+ remark+"<input style='display:none;' value='"+id+"'/>"+ "</td>");
+    }
+    $("#listbody").find("tr").find("td").css("line-height","34px");
+}
+
+//房间信息维护-点击详情按钮时
 function roomDetailClick(button) {
     var id = $(button).parent().parent().prev().find("input").val();
     request(id,"GET","/room/"+id,roomDetail);
 }
-//获取详情
+//房间信息维护-获取详情
 function roomDetail(data) {
     var selector = $(".room-info").find(".controls");
     selector.find("#roomNo").attr("placeholder",data.roomNo);
@@ -72,39 +109,43 @@ function roomDetail(data) {
     selector.find("#createTime").attr("placeholder",data.createTime);
 }
 
-//点击修改时的房间信息
+//房间信息维护-点击修改时的房间信息
 function roomDetailBeforeUpdate(data) {
     var selector = $(".room-update").find(".controls");
-    selector.find("#roomNo").attr("value",data.roomNo);
-    selector.find("#roomStatus").attr("value",data.roomStatus);
-    selector.find("#roomType").attr("value",data.roomType);
-    selector.find("#roomPrice").attr("value",data.roomPrice);
-    selector.find("#remark").attr("value",data.remark);
-    selector.find("#createUser").attr("value",data.createUser);
-    selector.find("#createTime").attr("value",data.createTime);
+    selector.find("#roomNoUpdate").attr("value",data.roomNo);
+    selector.find("#roomStatusUpdate").selectpicker('val', data.roomStatus);
+    selector.find("#roomTypeUpdate").selectpicker('val', data.roomType);
+    selector.find("#roomPriceUpdate").attr("value",data.roomPrice);
+    selector.find("#remarkUpdate").attr("value",data.remark);
+    selector.find("#createUserUpdate").attr("value",data.createUser);
+    selector.find("#createTimeUpdate").attr("value",data.createTime);
+    $("#idUpdate").attr("value",data.id);
 }
 
-//点击修改按钮时
+//房间信息维护-点击修改按钮时
 function roomUpdateClick(button) {
     var id = $(button).parent().prev().prev().parent().parent().prev().find("input").val();
     request(id,"GET","/room/"+id,roomDetailBeforeUpdate);
+    return id;
 }
 
-
-
-//确认修改时
-function confirmUpdate(data){
+//房间信息维护-确认修改时
+function confirmUpdate(){
+    var id = $("#idUpdate").val();
     var roomNo = $("#roomNoUpdate").val();
     var roomStatus = $("#roomStatusUpdate").val();
     var roomType = $("#roomTypeUpdate").val();
     var roomPrice = $("#roomPriceUpdate").val();
     var remark = $("#remarkUpdate").val();
-    var o  = {
-        "roomNo":roomNo,
-        "roomStatus":roomStatus,
-        "roomType": roomType,
-        "roomPrice": roomPrice,
-        "remark": remark
-    };
-    request(o,"PATCH","/room",refreshRoom);
+
+    var o = {};
+    o.id = id;
+    o.roomNo = roomNo;
+    o.roomStatus = roomStatus;
+    o.roomType = roomType;
+    o.roomPrice = roomPrice;
+    o.remark = remark;
+    var requestData = JSON.stringify(o);
+    roomUpdateRequest(requestData,"patch","/room",refreshRoom);
+    console.log("xcf111");
 }

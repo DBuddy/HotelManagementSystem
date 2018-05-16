@@ -1,6 +1,7 @@
 package indi.zzw.api.check_in_log;
 
 import com.github.pagehelper.PageInfo;
+import indi.zzw.exception.ApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class CheckInLogService {
 	 * @return
 	 * @throws Exception
 	 */
-	public PageInfo<CheckInLog> getAllCheckInLog(String cardId, String roomNumber, String userName) throws Exception {
+	public PageInfo<CheckInLog> getAllCheckInLog(String cardId, String roomNumber, String userName) throws ApplicationException {
 		Map<String, Object> criteria = new HashMap<>();
 		criteria.put("cardId", cardId);
 		criteria.put("userName", userName);
