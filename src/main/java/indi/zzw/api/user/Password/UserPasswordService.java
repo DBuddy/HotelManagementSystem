@@ -14,6 +14,6 @@ public class UserPasswordService {
 		if (Strings.isNullOrEmpty(id)) {
 			throw new ApplicationException("传入ID不能为空!");
 		}
-		return userPasswordMapper.getPasswordById(id);
+		return userPasswordMapper.findPasswordById(id);
 	}
 }

@@ -5,5 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserPasswordMapper {
-	public String getPasswordById(String id) throws ApplicationException;
+	//根据userPasswordId查询用户密码信息
+	String findPasswordById(String id) throws ApplicationException;
 }

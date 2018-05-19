@@ -72,7 +72,7 @@
                             <a href="#">信息</a>
                         </li>
                         <li class="pull-right">
-                            <a href="/login">登录</a>
+                            <a href="/room">进入系统</a>
                         </li>
                         <li class="pull-right">
                             <a href="#">预订</a>
@@ -258,6 +258,19 @@
     $(Document).ready(function () {
         $('.brandWord').show();
         $('.information').show();
+        if ($.cookie(("role")) == 0) {
+            $("#checkInNav").css("display", "none");
+            $("#checkOutNav").css("display", "none");
+            $("#checkInLogNav").css("margin-top", "20px");
+        }
+        if ($.cookie(("role")) == 1) {
+            $("#roomStatusNav").css("display","none");
+        }
+        if ($.cookie(("role")) == 2) {
+            $("#checkInLogNav").css("display", "none");
+            $("#roomNav").css("display", "none");
+            $("#roomStatusNav").css("display", "none");
+        }
     })
 </script>
 </body>

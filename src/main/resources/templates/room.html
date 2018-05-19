@@ -6,14 +6,15 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/bootstrap.css"/>
-    <link rel="stylesheet" href="../css/bootstrap-theme.css">
-    <link rel="stylesheet" href="../css/bootstrap-select.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="../css/bootstrap-select.css"/>
 
     <script type="text/javascript" src="/js/jquery-3.2.0.js"></script>
     <script type="text/javascript" src="/js/bootstrap-select.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/main.js"/>
+    <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/echarts.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-cookie.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
@@ -159,10 +160,10 @@
     <ul class="nav navbar-nav navbar-right">
         <li>
             <div>
-                <h5 style="margin-top: 15px;">欢迎您，</h5>
+                <h5 style="margin-top: 15px;">欢迎您，<span id="currentName"></span></h5>
             </div>
         </li>
-        <li><a href="/main"><span
+        <li><a href="/logout"><span
                 class="glyphicon glyphicon-log-in"></span> 退出</a></li>
     </ul>
 </div>
@@ -171,28 +172,28 @@
     <div id="sidebar-left" class="">
         <div class="navbar-collapse sidebar-nav">
             <ul class="sidebar-nav" style="color: #122B40">
-                <li class="nav nav-tabs nav-stacked"><a
-                        href="/apply"> <i
+                <li class="nav nav-tabs nav-stacked" id="checkInNav"><a
+                        href="/apply/checkIn"> <i
                         class="glyphicon glyphicon-ok"></i>
                     <span style="color: white;">订房</span>
                 </a></li>
-                <li class="nav nav-tabs nav-stacked "><a
-                        href="/HotelManageSystem/checkOut"> <i
+                <li class="nav nav-tabs nav-stacked " id="checkOutNav"><a
+                        href="/apply/checkOut"> <i
                         class="glyphicon glyphicon-remove"></i> <span
                         style="color: white;">退房</span>
                 </a></li>
-                <li class="nav nav-tabs nav-stacked "><a
+                <li class="nav nav-tabs nav-stacked " id="checkInLogNav"><a
                         href="/checkInLog"> <i
                         class="glyphicon glyphicon-list-alt"></i> <span
                         style="color: white;">入住记录</span></a></li>
-                <li class="nav nav-tabs nav-stacked "><a
+                <li class="nav nav-tabs nav-stacked " id="roomNav"><a
                         href="/room"> <i
                         class="glyphicon glyphicon-random"></i> <span
                         style="color: white;">房间管理</span></a></li>
-                <li class="nav nav-tabs nav-stacked "><a
-                        href="/HotelManageSystem/roomStatus"> <i
+                <li class="nav nav-tabs nav-stacked " id="roomStatusNav"><a
+                        href="#"> <i
                         class="glyphicon glyphicon-equalizer"></i> <span
-                        style="color: white;">房间状态</span></a></li>
+                        style="color: white;">业绩查看</span></a></li>
                 <li class="nav nav-tabs nav-stacked "><a
                         href="/HotelManageSystem/otherSetting"> <i
                         class="glyphicon glyphicon-cog"></i> <span style="color: white;">其他设置</span></a></li>
@@ -398,6 +399,38 @@
             };
             request(o, "GET", "room/query", refreshRoom);
         })
+        var getName = {
+            "cardId": $.cookie("cardId")
+        };
+        $.ajax({
+            cache: true,
+            type: "GET",
+            contentType: "application/json",
+            url: "/name",
+            data: getName,
+            error: function (XMLHttpRequest, errorThrown) {
+                console.log(XMLHttpRequest.status + "\r\n" + XMLHttpRequest.readyState);
+            },
+            success: putName
+        });
+
+        function putName(data) {
+            $("#currentName").html(data);
+        }
+
+        if ($.cookie("role") == 0) {
+            $("#checkInNav").css("display", "none");
+            $("#checkOutNav").css("display", "none");
+            $("#checkInLogNav").css("margin-top", "20px");
+        }
+        if ($.cookie("role") == 1) {
+            $("#roomStatusNav").css("display","none");
+        }
+        if ($.cookie("role") == 2) {
+            $("#checkInLogNav").css("display", "none");
+            $("#roomNav").css("display", "none");
+            $("#roomStatusNav").css("display", "none");
+        }
     })
 
 

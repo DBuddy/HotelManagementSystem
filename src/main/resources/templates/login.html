@@ -4,10 +4,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-select.css">
     <script type="text/javascript" src="/js/jquery-3.2.0.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-select.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <title>登录</title>
+
+    <style>
+        .verpic {
+            display: block;
+            width: 36%;
+            height: 35px;
+            background-color: #34495e;
+            color: #FFF;
+            position: absolute;
+            top: 0px;
+            left: 60%;
+            border-radius: 5px;
+            text-align: center;
+            padding-top: 5px;
+        }
+    </style>
 </head>
 <body>
 <div class="page-container">
@@ -21,7 +38,7 @@
             <div class="collapse navbar-collapse"
                  id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/HotelManageSystem/Mainpage">首页 <span
+                    <li><a href="/main">首页 <span
                             class="sr-only">(current)</span></a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -40,8 +57,7 @@
                             <h2>登录</h2>
                         </div>
                         <div class="panel-body" style="padding-top: 40px;">
-                            <form class="form-horizontal" role="form" method="post"
-                                  action="/login">
+                            <form class="form-horizontal" role="form" id="loginForm" action="/login" method="post">
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="name">请输入用户名：</label>
                                     <div class="col-md-6">
@@ -55,7 +71,6 @@
                                                type="password"/>
                                     </div>
                                 </div>
-                                <!--todo 验证码弄个背景图-->
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">请输入验证码：</label>
                                     <div class="col-md-6">
@@ -65,17 +80,18 @@
                                     <p id="errortips" style="margin-left: 14px; color: red;"></p>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-6 col-md-offset-4">
-                                        <div class="checkbox">
-                                            <label> <input type="checkbox" name="remember">记住我
-                                            </label>
-                                        </div>
+                                    <label class="col-md-4 control-label">请选择角色：</label>
+                                    <div class="col-md-6">
+                                        <select class="selectpicker" data-info="btn-info" name="role">
+                                            <option value="0">酒店管理员</option>
+                                            <option value="1">酒店员工</option>
+                                            <option value="2">酒店顾客</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-8 col-md-offset-4">
-                                        <!-- <button class="btn btn-primary" onclick="loginSuccess()">登录</button> -->
-                                        <a class="btn btn-primary" href="/HotelManageSystem/bookroom">登录</a>
+                                        <a class="btn btn-primary" onclick="formSubmit()">登录</a>
                                         <a class="btn btn-link" href="#">忘记密码?</a>
                                     </div>
                                 </div>
@@ -120,10 +136,8 @@
         }
     }
 
-    function loginSuccess() {
-        if (checkcode()) {
-            window.location.href = "http://localhost:8080/room";
-        }
+    function formSubmit() {
+        $("#loginForm").submit();
     }
 
     $().ready(changeImg);

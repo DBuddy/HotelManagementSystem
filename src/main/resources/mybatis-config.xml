@@ -10,6 +10,8 @@
     <typeAliases>
         <typeAlias type="indi.zzw.api.check_in_log.CheckInLog" alias="CheckInLog"/>
         <typeAlias type="indi.zzw.api.room.Room" alias="Room"/>
+        <typeAlias type="indi.zzw.api.user.User" alias="User"/>
+        <typeAlias type="indi.zzw.api.user.Password.UserPassword" alias="UserPassword"/>
     </typeAliases>
     <typeHandlers>
         <typeHandler handler="org.apache.ibatis.type.InstantTypeHandler" />
@@ -35,6 +37,8 @@
     <mappers>
         <mapper resource="mapper/CheckInLogMapper.xml"></mapper>
         <mapper resource="mapper/RoomMapper.xml"></mapper>
+        <mapper resource="mapper/UserMapper.xml"></mapper>
+        <mapper resource="mapper/UserPasswordMapper.xml"></mapper>
     </mappers>
 
 </configuration>
